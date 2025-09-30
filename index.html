@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maxinne's Kapihan - Filipino Coffee Shop</title>
+  <style>
+    /* CSS styles copied and adapted from React version */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #6f4e37, #8b4513);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      animation: slideInLeft 1s ease-out;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .main-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .product-section {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .product-section:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .product-section:hover .product-image {
+      transform: scale(1.05);
+    }
+
+    .product-title {
+      font-size: 1.8rem;
+      color: #6f4e37;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .product-description {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .price {
+      font-size: 2rem;
+      color: #d4a574;
+      font-weight: bold;
+      margin-bottom: 20px;
+      display: inline-block;
+      transition: transform 0.5s ease;
+    }
+
+    .features {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    .features li {
+      padding: 8px 0;
+      padding-left: 25px;
+      position: relative;
+      color: #555;
+    }
+
+    .features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #6f4e37;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .buy-button {
+      background: linear-gradient(135deg, #6f4e37, #8b4513);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(111, 78, 55, 0.3);
+      outline: none;
+    }
+
+    .buy-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(111, 78, 55, 0.4);
+    }
+
+    .hours-section {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      animation: slideInRight 1s ease-out;
+      animation-delay: 0.2s;
+      animation-fill-mode: both;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: #6f4e37;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .hours-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hour-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .hour-row:hover {
+      transform: translateX(10px);
+      background: #e8f5e8;
+      border-left: 4px solid #6f4e37;
+    }
+
+    .day {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .time {
+      color: #6f4e37;
+      font-weight: 500;
+    }
+
+    .closed {
+      color: #dc3545;
+      font-style: italic;
+    }
+
+    .social-section {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      margin-top: 30px;
+      animation: fadeInUp 1s ease-out;
+      animation-delay: 0.4s;
+      animation-fill-mode: both;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 20px;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      color: white;
+      user-select: none;
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .facebook {
+      background: #1877f2;
+    }
+
+    .instagram {
+      background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+    }
+
+    .twitter {
+      background: #1da1f2;
+    }
+
+    .youtube {
+      background: #ff0000;
+    }
+
+    .linkedin {
+      background: #0077b5;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 30px;
+      background: #6f4e37;
+      color: white;
+      border-radius: 10px;
+      user-select: none;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .price {
+        font-size: 1.6rem;
+      }
+
+      .social-links {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .social-link {
+        width: 80%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Maxinne's Kapihan</h1>
+      <p class="subtitle">Authentic Filipino Coffee Experience Since 2020</p>
+    </header>
+
+    <div class="main-content">
+      <!-- Product 1 -->
+      <section class="product-section">
+        <img
+          src="https://placeholder-image-service.onrender.com/image/400x300?prompt=Filipino barako coffee beans in traditional woven basket with banana leaves and rustic wooden background"
+          alt="Premium Kapeng Barako beans in traditional Filipino woven basket with banana leaves"
+          class="product-image"
+        />
+        <h2 class="product-title">Kapeng Barako Premium</h2>
+        <p class="product-description">
+          Tikman ang malakas at masarap na lasa ng aming premium Kapeng Barako! Galing sa mga bundok ng Batangas, ang kape namin ay may malalim na lasa at natural na tamis na magpapaalala sa inyo ng tradisyunal na Filipino coffee experience.
+        </p>
+        <div class="price">₱450.00</div>
+        <ul class="features">
+          <li>100% Pure Barako beans</li>
+          <li>Galing sa Batangas highlands</li>
+          <li>Medium dark roast</li>
+          <li>Freshly ground sa order</li>
+          <li>Suportang local farmers</li>
+          <li>250g traditional packaging</li>
+        </ul>
+        <button class="buy-button">Order Ngayon</button>
+      </section>
+
+      <!-- Product 2 -->
+      <section class="product-section">
+        <img
+          src="https://placeholder-image-service.onrender.com/image/400x300?prompt=Traditional Filipino kapeng alamid coffee beans with premium gold packaging and mountain landscape background"
+          alt="Premium Kapeng Alamid beans in elegant gold packaging with mountain scenery"
+          class="product-image"
+        />
+        <h2 class="product-title">Kapeng Alamid Special</h2>
+        <p class="product-description">
+          Subukan ang pinakaeksklusibong kape sa Pilipinas! Ang aming Kapeng Alamid ay dumaan sa natural na proseso na ginagawa ng mga alamid sa mga bundok. Rare at premium quality na may smooth at creamy na lasa.
+        </p>
+        <div class="price">₱1,250.00</div>
+        <ul class="features">
+          <li>Rare Alamid processed beans</li>
+          <li>Galing sa Cordillera mountains</li>
+          <li>Light to medium roast</li>
+          <li>Limited edition batches</li>
+          <li>Premium gift packaging</li>
+          <li>150g exclusive pack</li>
+        </ul>
+        <button class="buy-button">Order Ngayon</button>
+      </section>
+
+      <!-- Product 3 -->
+      <section class="product-section">
+        <img
+          src="https://placeholder-image-service.onrender.com/image/400x300?prompt=Filipino robusta coffee beans with traditional brown paper packaging and coconut leaves decoration"
+          alt="Premium Kapeng Robusta beans in traditional brown packaging with coconut leaf accents"
+          class="product-image"
+        />
+        <h2 class="product-title">Kapeng Robusta Classic</h2>
+        <p class="product-description">
+          Ang pang-araw-araw na kape para sa mga tunay na coffee lover! Masarap na Robusta beans na may strong flavor at perfect sa umaga. Abot-kaya pero hindi bibitaw sa kalidad.
+        </p>
+        <div class="price">₱280.00</div>
+        <ul class="features">
+          <li>Premium Robusta beans</li>
+          <li>Galing sa Cavite farms</li>
+          <li>Dark roast perfection</li>
+          <li>Budget-friendly quality</li>
+          <li>Perfect para sa kapeng barako</li>
+          <li>300g family size</li>
+        </ul>
+        <button class="buy-button">Order Ngayon</button>
+      </section>
+    </div>
+
+    <section class="hours-section">
+      <h2 class="section-title">Oras ng Tindahan</h2>
+      <div class="hours-grid">
+        <div class="hour-row">
+          <span class="day">Lunes</span>
+          <span class="time">6:00 AM - 8:00 PM</span>
+        </div>
+        <div class="hour-row">
+          <span class="day">Martes</span>
+          <span class="time">6:00 AM - 8:00 PM</span>
+        </div>
+        <div class="hour-row">
+          <span class="day">Miyerkules</span>
+          <span class="time">6:00 AM - 8:00 PM</span>
+        </div>
+        <div class="hour-row">
+          <span class="day">Huwebes</span>
+          <span class="time">6:00 AM - 9:00 PM</span>
+        </div>
+        <div class="hour-row">
+          <span class="day">Biyernes</span>
+          <span class="time">6:00 AM - 9:00 PM</span>
+        </div>
+        <div class="hour-row">
+          <span class="day">Sabado</span>
+          <span class="time">7:00 AM - 9:00 PM</span>
+        </div>
+        <div class="hour-row">
+          <span class="day">Linggo</span>
+          <span class="time closed">Sarado</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="social-section">
+      <h2 class="section-title">Sumama sa Amin</h2>
+      <p>Makakuha ng latest updates, special offers, at coffee brewing tips!</p>
+
+      <div class="social-links">
+        <a href="https://facebook.com/maxinneskape" class="social-link facebook" target="_blank" rel="noreferrer">📘 Facebook</a>
+        <a href="https://instagram.com/maxinneskape" class="social-link instagram" target="_blank" rel="noreferrer">📷 Instagram</a>
+        <a href="https://twitter.com/maxinneskape" class="social-link twitter" target="_blank" rel="noreferrer">🐦 Twitter</a>
+        <a href="https://youtube.com/maxinneskape" class="social-link youtube" target="_blank" rel="noreferrer">📺 YouTube</a>
+        <a href="https://linkedin.com/in/maxinnechelsea" class="social-link linkedin" target="_blank" rel="noreferrer">💼 LinkedIn</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2024 Maxinne's Kapihan. Lahat ng karapatan ay nakaresrba.</p>
+      <p><strong>Contact:</strong> Maxinne Chelsea Ambi</p>
+      <p>📧 ambimaxinnechelsea07@gmail.com | 📱 09632096278</p>
+      <p>📍 Authentic Filipino Coffee Experience</p>
+    </footer>
+  </div>
+
+  <script>
+    // Highlight current day in Filipino
+    const days = ['Linggo', 'Lunes', 'Martes', 'Miyerkules', 'Huwebes', 'Biyernes', 'Sabado'];
+    const today = new Date().getDay();
+    const todayName = days[today];
+
+    document.querySelectorAll('.hour-row').forEach(row => {
+      const daySpan = row.querySelector('.day');
+      if (daySpan && daySpan.textContent === todayName) {
+        row.style.background = '#e8f5e8';
+        row.style.border = '2px solid #6f4e37';
+      }
+    });
+
+    // Button click alert and bounce animation
+    document.querySelectorAll('.buy-button').forEach(button => {
+      button.addEventListener('click', () => {
+        button.classList.add('bounce');
+        setTimeout(() => {
+          button.classList.remove('bounce');
+        }, 1000);
+        alert('Salamat sa inyong interes! Para sa order, makakakuha kayo ng mas maraming detalye sa contact namin - ambimaxinnechelsea07@gmail.com o 09632096278');
+      });
+    });
+
+    // Floating animation for prices
+    document.querySelectorAll('.price').forEach(price => {
+      setInterval(() => {
+        price.style.transform = 'translateY(-3px)';
+        setTimeout(() => {
+          price.style.transform = 'translateY(0)';
+        }, 500);
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
